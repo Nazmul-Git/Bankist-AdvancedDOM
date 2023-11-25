@@ -66,6 +66,12 @@ document.querySelector('.nav__links').addEventListener('click', function(e){
   console.log('links container', e.target);
 });
 
+//nav container 
+document.querySelector('.nav').addEventListener('click', function(e){
+  this.style.backgroundColor=randomColor();
+  console.log('nav container', e.target);
+});
+
 
 
 
