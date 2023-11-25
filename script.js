@@ -46,6 +46,26 @@ btnScrollTo.addEventListener('click', (e)=>{
   section1.scrollIntoView({behavior: 'smooth'});
 });
 
+// navigation
+document.querySelectorAll('.nav__link').forEach((el)=>{
+  el.addEventListener('click', function(e){
+    e.preventDefault();
+  
+    // console.log('link');
+    const id=this.getAttribute('href');
+    console.log(id);
+    document.querySelector(id).scrollIntoView({
+      behavior:'smooth'
+    });
+
+  });
+});
+
+
+
+
+
+////////////////////////////// EXTRA /////////////////////////
 // bubble phase
 // rgb(255,255,255)
 // random number function
@@ -58,6 +78,8 @@ const randomColor=()=>`rgb(${randomInt(0,255)}, ${randomInt(0,255)}, ${randomInt
 document.querySelector('.nav__link').addEventListener('click', function(e){
   this.style.backgroundColor=randomColor();
   console.log('link', e.target);
+  // stop propagation
+  e.stopPropagation();
 });
 
 // links container
