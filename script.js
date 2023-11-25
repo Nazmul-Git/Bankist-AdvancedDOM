@@ -24,16 +24,18 @@ const closeModal = function () {
 };
 
 btnsOpenModal.forEach(btn=>btn.addEventListener('click', openModal));
-
+// mouse click close modal
 btnCloseModal.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
 
+// keyboard close modal
 document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
     closeModal();
   }
 });
 
+// scrolling
 const btnScrollTo=document.querySelector('.btn--scroll-to');
 const section1=document.querySelector('#section--1');
 btnScrollTo.addEventListener('click', (e)=>{
@@ -43,3 +45,20 @@ btnScrollTo.addEventListener('click', (e)=>{
 
   section1.scrollIntoView({behavior: 'smooth'});
 });
+
+// bubble phase
+// rgb(255,255,255)
+// random number function
+const randomInt=(min, max)=>Math.floor(Math.random()*(max-min+1)+min);
+
+// random color function
+const randomColor=()=>`rgb(${randomInt(0,255)}, ${randomInt(0,255)}, ${randomInt(0,255)})`;
+
+document.querySelector('.nav__link').addEventListener('click', function(e){
+  this.style.backgroundColor=randomColor();
+  console.log('link', e.target);
+})
+
+
+
+
