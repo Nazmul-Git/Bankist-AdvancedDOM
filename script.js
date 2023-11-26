@@ -36,63 +36,70 @@ document.addEventListener('keydown', function (e) {
 });
 
 // scrolling
-const btnScrollTo=document.querySelector('.btn--scroll-to');
-const section1=document.querySelector('#section--1');
-btnScrollTo.addEventListener('click', (e)=>{
-  // const scrolling=section1.getBoundingClientRect();
-  // console.log(scrolling);
-  // console.log(e.target.getBoundingClientRect());
+// const btnScrollTo=document.querySelector('.btn--scroll-to');
+// const section1=document.querySelector('#section--1');
+// btnScrollTo.addEventListener('click', (e)=>{
+//   // const scrolling=section1.getBoundingClientRect();
+//   // console.log(scrolling);
+//   // console.log(e.target.getBoundingClientRect());
 
-  section1.scrollIntoView({behavior: 'smooth'});
-});
+//   section1.scrollIntoView({behavior: 'smooth'});
+// });
 
-// navigation
-document.querySelectorAll('.nav__link').forEach((el)=>{
-  el.addEventListener('click', function(e){
-    e.preventDefault();
+// navigation .. not to use
+// document.querySelectorAll('.nav__link').forEach((el)=>{
+//   el.addEventListener('click', function(e){
+//     e.preventDefault();
   
-    // console.log('link');
-    const id=this.getAttribute('href');
+//     // console.log('link');
+//     const id=this.getAttribute('href');
+//     console.log(id);
+//     document.querySelector(id).scrollIntoView({
+//       behavior:'smooth'
+//     });
+//   });
+// });
+
+// navigation 
+document.querySelector('.nav__links').addEventListener('click', (e)=>{
+  e.preventDefault();
+  console.log(e);
+  if(e.target.classList.contains('nav__link')){
+    const id = e.target.getAttribute('href');
     console.log(id);
-    document.querySelector(id).scrollIntoView({
-      behavior:'smooth'
-    });
-
-  });
-});
-
-
-
+    document.querySelector(id).scrollIntoView({behavior: 'smooth'})
+  }
+})
 
 
 ////////////////////////////// EXTRA /////////////////////////
 // bubble phase
 // rgb(255,255,255)
 // random number function
-const randomInt=(min, max)=>Math.floor(Math.random()*(max-min+1)+min);
+// const randomInt=(min, max)=>Math.floor(Math.random()*(max-min+1)+min);
 
-// random color function
-const randomColor=()=>`rgb(${randomInt(0,255)}, ${randomInt(0,255)}, ${randomInt(0,255)})`;
+// // random color function
+// const randomColor=()=>`rgb(${randomInt(0,255)}, ${randomInt(0,255)}, ${randomInt(0,255)})`;
 
-// link
-document.querySelector('.nav__link').addEventListener('click', function(e){
-  this.style.backgroundColor=randomColor();
-  console.log('link', e.target);
-  // stop propagation
-  e.stopPropagation();
-});
+// // link
+// document.querySelector('.nav__link').addEventListener('click', function(e){
+//   this.style.backgroundColor=randomColor();
+//   console.log('link', e.target);
+//   // stop propagation
+//   e.stopPropagation();
+// });
 
-// links container
-document.querySelector('.nav__links').addEventListener('click', function(e){
-  this.style.backgroundColor=randomColor();
-  console.log('links container', e.target);
-});
+// // links container
+// document.querySelector('.nav__links').addEventListener('click', function(e){
+//   this.style.backgroundColor=randomColor();
+//   console.log('links container', e.target);
+// });
 
-//nav container 
-document.querySelector('.nav').addEventListener('click', function(e){
-  this.style.backgroundColor=randomColor();
-  console.log('nav container', e.target);
-});
+// //nav container 
+// document.querySelector('.nav').addEventListener('click', function(e){
+//   this.style.backgroundColor=randomColor();
+//   console.log('nav container', e.target);
+// });
 
 
 
