@@ -63,14 +63,19 @@ tabContainer.addEventListener('click', function(e){
   console.log(clicked);
   
   if(!clicked) return;
-  
-  // Active tab
+
+  // remove activate classes
   tab.forEach(t=>t.classList.remove('operations__tab--active'));
+  tabsContent.forEach(c=>c.classList.remove('operations__content--active'))
+  
+
+  // Active tab
   clicked.classList.add('operations__tab--active');
+ 
 
   // active content area
   console.log(clicked.dataset.tab);
-  document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__tab--active');
+  document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active');
 
 
 
