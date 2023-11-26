@@ -35,6 +35,27 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+// navigation 
+document.querySelector('.nav__links').addEventListener('click', (e)=>{
+  e.preventDefault();
+  console.log(e);
+  if(e.target.classList.contains('nav__link')){
+    const id = e.target.getAttribute('href');
+    console.log(id);
+    document.querySelector(id).scrollIntoView({behavior: 'smooth'})
+  }
+})
+
+const h1=document.querySelector('h1');
+console.log(h1.childNodes);
+h1.firstElementChild.style.color='white';
+h1.lastElementChild.style.color='orangered';
+
+
+
+
+
+
 // scrolling
 // const btnScrollTo=document.querySelector('.btn--scroll-to');
 // const section1=document.querySelector('#section--1');
@@ -60,16 +81,6 @@ document.addEventListener('keydown', function (e) {
 //   });
 // });
 
-// navigation 
-document.querySelector('.nav__links').addEventListener('click', (e)=>{
-  e.preventDefault();
-  console.log(e);
-  if(e.target.classList.contains('nav__link')){
-    const id = e.target.getAttribute('href');
-    console.log(id);
-    document.querySelector(id).scrollIntoView({behavior: 'smooth'})
-  }
-})
 
 
 ////////////////////////////// EXTRA /////////////////////////
