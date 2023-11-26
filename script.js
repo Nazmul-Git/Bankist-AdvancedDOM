@@ -36,6 +36,8 @@ document.addEventListener('keydown', function (e) {
 });
 
 // navigation 
+
+///////////// querySelector find children ////////////////
 document.querySelector('.nav__links').addEventListener('click', (e)=>{
   e.preventDefault();
   console.log(e);
@@ -46,12 +48,21 @@ document.querySelector('.nav__links').addEventListener('click', (e)=>{
   }
 })
 
-const h1=document.querySelector('h1');
-console.log(h1.childNodes);
-h1.firstElementChild.style.color='white';
-h1.lastElementChild.style.color='orangered';
 
+// ////////////////////////////////////////
 
+// Going downwards: child
+// const h1=document.querySelector('h1');
+// console.log(h1.childNodes);
+// h1.firstElementChild.style.color='white';
+// h1.lastElementChild.style.color='orangered';
+
+// Going upwards: parents
+// console.log('upwards:',h1.parentNode);
+// console.log('upwards:',h1.parentElement);
+
+///////////// closest find parent ////////////////
+// h1.closest('.header').style.background='var(--gradient-secondary)';
 
 
 
