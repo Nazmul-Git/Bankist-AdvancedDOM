@@ -48,6 +48,35 @@ document.querySelector('.nav__links').addEventListener('click', (e)=>{
   }
 })
 
+// tabbed component
+const tab=document.querySelectorAll('.operations__tab');
+const tabContainer=document.querySelector('.operations__tab-container');
+const tabsContent=document.querySelectorAll('.operations__content');
+
+// BAD PRACTICE. Never use it.Bcz, when we have more btn then call back function create more copies, that is create a page slow down.
+
+// tab.forEach(t=>t.addEventListener('click', ()=>console.log('TAB')));
+
+
+tabContainer.addEventListener('click', function(e){
+  const clicked= e.target.closest('.operations__tab');
+  console.log(clicked);
+  
+  if(!clicked) return;
+  
+  // Active tab
+  tab.forEach(t=>t.classList.remove('operations__tab--active'));
+  clicked.classList.add('operations__tab--active');
+
+  // active content area
+  
+
+})
+
+
+
+
+
 
 // ////////////////////////////////////////
 
