@@ -1,13 +1,19 @@
 'use strict';
 
 ///////////////////////////////////////
-// Modal window
-
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
-console.log(btnsOpenModal);
+const tab=document.querySelectorAll('.operations__tab'); //button
+const tabContainer=document.querySelector('.operations__tab-container');  //all btn into div
+const tabsContent=document.querySelectorAll('.operations__content'); //btn down div
+const nav= document.querySelector('.nav');
+
+// Modal window
+
+
+// console.log(btnsOpenModal);
 /**
 NodeList(2) [ a.nav__link.nav__link--btn.btn--show-modal, button.btn.btn--show-modal ]
  */
@@ -49,9 +55,7 @@ document.querySelector('.nav__links').addEventListener('click', (e)=>{
 })
 
 // tabbed component
-const tab=document.querySelectorAll('.operations__tab');
-const tabContainer=document.querySelector('.operations__tab-container');
-const tabsContent=document.querySelectorAll('.operations__content');
+
 
 // BAD PRACTICE. Never use it.Bcz, when we have more btn then call back function create more copies, that is create a page slow down.
 
@@ -60,9 +64,10 @@ const tabsContent=document.querySelectorAll('.operations__content');
 
 tabContainer.addEventListener('click', function(e){
   const clicked= e.target.closest('.operations__tab');
-  console.log(clicked);
+  // console.log(clicked);
   
-  if(!clicked) return;
+  
+  if(!clicked) return; // when clicked then execute next line code
 
   // remove activate classes
   tab.forEach(t=>t.classList.remove('operations__tab--active'));
@@ -74,13 +79,37 @@ tabContainer.addEventListener('click', function(e){
  
 
   // active content area
-  console.log(clicked.dataset.tab);
+  // console.log(clicked.dataset.tab);
   document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active');
 
+});
 
+// Menu fade animation
+nav.addEventListener('mouseover', function(e){
+  if(e.target.classList.contains('nav__link')){
+    const link= e.target;
+    const siblings=link.closest('.nav').querySelectorAll('.nav__link');
+    const logo=link.closest('.nav').querySelector('img');
+    
+    siblings.forEach(el=>{
+      if(el !== link) el.style.opacity=0.5;
+    });
+    logo.style.opacity=0.5;
+  }
+});
 
+nav.addEventListener('mouseout', function(e){
+  if(e.target.classList.contains('nav__link')){
+    const link= e.target;
+    const siblings=link.closest('.nav').querySelectorAll('.nav__link');
+    const logo=link.closest('.nav').querySelector('img');
+    
+    siblings.forEach(el=>{
+      if(el !== link) el.style.opacity=1;
+    });
+    logo.style.opacity=1;
+  }
 })
-
 
 
 
