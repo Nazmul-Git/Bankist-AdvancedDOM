@@ -9,6 +9,7 @@ const tab=document.querySelectorAll('.operations__tab'); //button
 const tabContainer=document.querySelector('.operations__tab-container');  //all btn into div
 const tabsContent=document.querySelectorAll('.operations__content'); //btn down div
 const nav= document.querySelector('.nav');
+const section1= document.querySelector('#section--1');
 
 // Modal window
 
@@ -98,6 +99,7 @@ const handleHover=function(e){
 }
 
 // Menu fade animation
+
 // nav.addEventListener('mouseover', (e)=>{
 //   handleHover(e, 0.5);
 // });
@@ -112,12 +114,22 @@ nav.addEventListener('mouseover', handleHover.bind(0.5));
 
 nav.addEventListener('mouseout', handleHover.bind(1));
 
+// Sticky navigation
+const initialCords= section1.getBoundingClientRect(); // section er window position
+console.log(initialCords);
+window.addEventListener('scroll', ()=>{
+  console.log(window.scrollY); // scroll position number
+
+  if(window.scrollY > initialCords.top){
+    nav.classList.add('sticky');
+  }else{
+    nav.classList.remove('sticky');
+  }
+});
 
 
 
-
-
-// //////////////////EXTRA//////////////////////
+// ////////////////// EXTRA //////////////////////
 
 // Going downwards: child
 // const h1=document.querySelector('h1');
