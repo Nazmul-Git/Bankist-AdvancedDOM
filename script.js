@@ -84,32 +84,40 @@ tabContainer.addEventListener('click', function(e){
 
 });
 
-const handleHover=(e, opacity)=>{
+const handleHover=function(e){
   if(e.target.classList.contains('nav__link')){
     const link= e.target;
     const siblings=link.closest('.nav').querySelectorAll('.nav__link');
     const logo=link.closest('.nav').querySelector('img');
     
     siblings.forEach(el=>{
-      if(el !== link) el.style.opacity=opacity;
+      if(el !== link) el.style.opacity= this;
     });
-    logo.style.opacity=opacity;
+    logo.style.opacity= this;
   }
 }
 
 // Menu fade animation
-nav.addEventListener('mouseover', (e)=>{
-  handleHover(e, 0.5);
-});
-nav.addEventListener('mouseout', (e)=>{
-  handleHover(e, 1);
-});
+// nav.addEventListener('mouseover', (e)=>{
+//   handleHover(e, 0.5);
+// });
+
+// nav.addEventListener('mouseout', (e)=>{
+//   handleHover(e, 1);
+// });
+
+/////////// WE CAN USE BIND METHOD HERE FOR DIRECTLY CALL THE FUNCTION AND PASS VALUES //////////
+
+nav.addEventListener('mouseover', handleHover.bind(0.5));
+
+nav.addEventListener('mouseout', handleHover.bind(1));
 
 
 
 
 
-// ////////////////////////////////////////
+
+// //////////////////EXTRA//////////////////////
 
 // Going downwards: child
 // const h1=document.querySelector('h1');
