@@ -147,7 +147,7 @@ const headerObserver= new IntersectionObserver(stickyNav, {
 headerObserver.observe(header);
 
 
-// 
+// intersection observing scroll effects
 const allSection=document.querySelectorAll('.section');
 const revealSection= function(entries, observer){
   const [entry]=entries;
@@ -168,6 +168,31 @@ allSection.forEach(function(section){
   sectionObserver.observe(section);
   section.classList.add('section--hidden');
 })
+
+// Lazy loading images
+const imgTarget= document.querySelectorAll('img[data-src]');
+const loading= function(entries, observer){
+  const [entry]=entries;
+  // console.log(entry);
+  if(!entry.isIntersecting) return;
+  //  replace src with data-src
+  entry.target.src = entry.target.dataset.src;
+  
+
+  entry.target.addEventListener('load', function(){
+    entry.target.classList.remove('lazy-img');
+  });
+
+  observer.unobserve(entry.target);
+};
+const imgObserver=new IntersectionObserver(loading, {
+    root: null,
+    threshold:0,
+    rootMargin:'-200px',
+});
+imgTarget.forEach(img=>imgObserver.observe(img));
+
+
 
 // ////////////////// EXTRA //////////////////////
 
