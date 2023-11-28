@@ -47,10 +47,10 @@ document.addEventListener('keydown', function (e) {
 ///////////// querySelector find children ////////////////
 document.querySelector('.nav__links').addEventListener('click', (e)=>{
   e.preventDefault();
-  console.log(e);
+  // console.log(e);
   if(e.target.classList.contains('nav__link')){
     const id = e.target.getAttribute('href');
-    console.log(id);
+    // console.log(id);
     document.querySelector(id).scrollIntoView({behavior: 'smooth'})
   }
 })
@@ -130,11 +130,11 @@ nav.addEventListener('mouseout', handleHover.bind(1));
 // BETTER WAY TO STICKY NAVIGATION
 const header=document.querySelector('.header');
 const navHeight= nav.getBoundingClientRect().height;
-console.log(navHeight);
+// console.log(navHeight);
 
 const stickyNav=function(entries){
   const [entry]=entries;
-  console.log(entry);
+  // console.log(entry);
   if(!entry.isIntersecting) nav.classList.add('sticky');
   else nav.classList.remove('sticky');
 };
@@ -146,6 +146,28 @@ const headerObserver= new IntersectionObserver(stickyNav, {
 });
 headerObserver.observe(header);
 
+
+// 
+const allSection=document.querySelectorAll('.section');
+const revealSection= function(entries, observer){
+  const [entry]=entries;
+  console.log(entry);
+
+  if(!entry.isIntersecting) return
+
+  entry.target.classList.remove('section--hidden');
+  observer.unobserve(entry.target);
+};
+
+const sectionObserver= new IntersectionObserver(revealSection, {
+  root:null,
+  threshold:0.15,
+});
+
+allSection.forEach(function(section){
+  sectionObserver.observe(section);
+  section.classList.add('section--hidden');
+})
 
 // ////////////////// EXTRA //////////////////////
 
