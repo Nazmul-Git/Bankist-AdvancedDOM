@@ -166,7 +166,7 @@ const sectionObserver= new IntersectionObserver(revealSection, {
 
 allSection.forEach(function(section){
   sectionObserver.observe(section);
-  // section.classList.add('section--hidden');
+  section.classList.add('section--hidden');
 })
 
 // Lazy loading images
@@ -225,14 +225,18 @@ const previousSlide= function(){
   }else{
     currentSlide--;
   }
-  
+
   goToSlide(currentSlide);
 }
 
 btnRight.addEventListener('click', nextSlide);
 btnLeft.addEventListener('click', previousSlide);
 
-
+document.addEventListener('keydown', function(e){
+  console.log(e);
+  if(e.key === 'ArrowLeft') previousSlide();
+  e.key === 'ArrowRight' && nextSlide();
+})
 
 
 // ////////////////// EXTRA //////////////////////
