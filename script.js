@@ -350,4 +350,8 @@ sliders();
 
 
 /////////////////////////////////////////////////
+// target on document
 document.addEventListener('DOMContentLoaded', (e)=>console.log(e));
+
+// target on window
+window.addEventListener('load', e => console.log('page fully loaded.', e));
