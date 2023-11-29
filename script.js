@@ -5,14 +5,13 @@ const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
-const tab=document.querySelectorAll('.operations__tab'); //button
-const tabContainer=document.querySelector('.operations__tab-container');  //all btn into div
-const tabsContent=document.querySelectorAll('.operations__content'); //btn down div
-const nav= document.querySelector('.nav');
-const section1= document.querySelector('#section--1');
+const tab = document.querySelectorAll('.operations__tab'); //button
+const tabContainer = document.querySelector('.operations__tab-container'); //all btn into div
+const tabsContent = document.querySelectorAll('.operations__content'); //btn down div
+const nav = document.querySelector('.nav');
+const section1 = document.querySelector('#section--1');
 
 // Modal window
-
 
 // console.log(btnsOpenModal);
 /**
@@ -30,7 +29,7 @@ const closeModal = function () {
   overlay.classList.add('hidden');
 };
 
-btnsOpenModal.forEach(btn=>btn.addEventListener('click', openModal));
+btnsOpenModal.forEach(btn => btn.addEventListener('click', openModal));
 // mouse click close modal
 btnCloseModal.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
@@ -42,61 +41,57 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-// navigation 
+// navigation
 
 ///////////// querySelector find children ////////////////
-document.querySelector('.nav__links').addEventListener('click', (e)=>{
+document.querySelector('.nav__links').addEventListener('click', e => {
   e.preventDefault();
   // console.log(e);
-  if(e.target.classList.contains('nav__link')){
+  if (e.target.classList.contains('nav__link')) {
     const id = e.target.getAttribute('href');
     // console.log(id);
-    document.querySelector(id).scrollIntoView({behavior: 'smooth'})
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
-})
+});
 
 // tabbed component
-
 
 // BAD PRACTICE. Never use it.Bcz, when we have more btn then call back function create more copies, that is create a page slow down.
 
 // tab.forEach(t=>t.addEventListener('click', ()=>console.log('TAB')));
 
-
-tabContainer.addEventListener('click', function(e){
-  const clicked= e.target.closest('.operations__tab');
+tabContainer.addEventListener('click', function (e) {
+  const clicked = e.target.closest('.operations__tab');
   // console.log(clicked);
-  
-  
-  if(!clicked) return; // when clicked then execute next line code
+
+  if (!clicked) return; // when clicked then execute next line code
 
   // remove activate classes
-  tab.forEach(t=>t.classList.remove('operations__tab--active'));
-  tabsContent.forEach(c=>c.classList.remove('operations__content--active'))
-  
+  tab.forEach(t => t.classList.remove('operations__tab--active'));
+  tabsContent.forEach(c => c.classList.remove('operations__content--active'));
 
   // Active tab
   clicked.classList.add('operations__tab--active');
- 
 
   // Active content area
   // console.log(clicked.dataset.tab);
-  document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active');
-
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
 });
 
-const handleHover=function(e){
-  if(e.target.classList.contains('nav__link')){
-    const link= e.target;
-    const siblings=link.closest('.nav').querySelectorAll('.nav__link');
-    const logo=link.closest('.nav').querySelector('img');
-    
-    siblings.forEach(el=>{
-      if(el !== link) el.style.opacity= this;
+const handleHover = function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+    const logo = link.closest('.nav').querySelector('img');
+
+    siblings.forEach(el => {
+      if (el !== link) el.style.opacity = this;
     });
-    logo.style.opacity= this;
+    logo.style.opacity = this;
   }
-}
+};
 
 // Menu fade animation
 
@@ -128,159 +123,159 @@ nav.addEventListener('mouseout', handleHover.bind(1));
 // });
 
 // BETTER WAY TO STICKY NAVIGATION
-const header=document.querySelector('.header');
-const navHeight= nav.getBoundingClientRect().height;
+const header = document.querySelector('.header');
+const navHeight = nav.getBoundingClientRect().height;
 // console.log(navHeight);
 
-const stickyNav=function(entries){
-  const [entry]=entries;
+const stickyNav = function (entries) {
+  const [entry] = entries;
   // console.log(entry);
-  if(!entry.isIntersecting) nav.classList.add('sticky');
+  if (!entry.isIntersecting) nav.classList.add('sticky');
   else nav.classList.remove('sticky');
 };
 
-const headerObserver= new IntersectionObserver(stickyNav, {
-  root:null,
-  threshold:0,
-  rootMargin:`-${navHeight}px`,
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px`,
 });
 headerObserver.observe(header);
 
-
 // intersection observing scroll effects
-const allSection=document.querySelectorAll('.section');
-const revealSection= function(entries, observer){
-  const [entry]=entries;
-  console.log(entry);
+const allSection = document.querySelectorAll('.section');
+const revealSection = function (entries, observer) {
+  const [entry] = entries;
+  // console.log(entry);
 
-  if(!entry.isIntersecting) return
+  if (!entry.isIntersecting) return;
 
   entry.target.classList.remove('section--hidden');
   observer.unobserve(entry.target);
 };
 
-const sectionObserver= new IntersectionObserver(revealSection, {
-  root:null,
-  threshold:0.15,
+const sectionObserver = new IntersectionObserver(revealSection, {
+  root: null,
+  threshold: 0.15,
 });
 
-allSection.forEach(function(section){
+allSection.forEach(function (section) {
   sectionObserver.observe(section);
   section.classList.add('section--hidden');
-})
+});
 
 // Lazy loading images
-const imgTarget= document.querySelectorAll('img[data-src]');
-const loading= function(entries, observer){
-  const [entry]=entries;
+const imgTarget = document.querySelectorAll('img[data-src]');
+const loading = function (entries, observer) {
+  const [entry] = entries;
   // console.log(entry);
-  if(!entry.isIntersecting) return;
+  if (!entry.isIntersecting) return;
   //  replace src with data-src
   entry.target.src = entry.target.dataset.src;
-  
 
-  entry.target.addEventListener('load', function(){
+  entry.target.addEventListener('load', function () {
     entry.target.classList.remove('lazy-img');
   });
 
   observer.unobserve(entry.target);
 };
-const imgObserver=new IntersectionObserver(loading, {
-    root: null,
-    threshold:0,
-    rootMargin:'-200px', 
+const imgObserver = new IntersectionObserver(loading, {
+  root: null,
+  threshold: 0,
+  rootMargin: '-200px',
 });
-imgTarget.forEach(img=>imgObserver.observe(img));
+imgTarget.forEach(img => imgObserver.observe(img));
 
 // Slider
-const sliders= function(){
+const sliders = function () {
+  const slides = document.querySelectorAll('.slide');
+  const btnLeft = document.querySelector('.slider__btn--left');
+  const btnRight = document.querySelector('.slider__btn--right');
+  const dotContainer = document.querySelector('.dots');
+  const slider = document.querySelector('.slider');
+  slider.style.transform = 'visible';
 
-const slides= document.querySelectorAll('.slide');
-const btnLeft=document.querySelector('.slider__btn--left');
-const btnRight=document.querySelector('.slider__btn--right');
-const dotContainer=document.querySelector('.dots');
-const slider= document.querySelector('.slider');
-slider.style.transform= 'visible';
+  let currentSlide = 0;
+  const maxSlide = slides.length;
 
+  // FUNCTIONS
 
-let currentSlide=0;
-const maxSlide= slides.length;
-
-// FUNCTIONS
-
-// create dots
-const createDots= function(){
-  slides.forEach(function(_, i){
-    dotContainer.insertAdjacentHTML('beforeend', `<button class="dots__dot" data-slide="${i}"></button>`)
-  })
-}
-
-
-// active dot
-const activeDots= function(slide){
-  document.querySelectorAll('.dots__dot').forEach(dot=>dot.classList.remove('dots__dot--active'));
-
-  document.querySelector(`.dots__dot[data-slide="${slide}"]`).classList.add('dots__dot--active');
-};
-
-
-
-const goToSlide= function(slide){
-  slides.forEach((s, i)=>s.style.transform= `translateX(${100*(i-slide)}%)`);
-}
-
-
-
-// Next slide
-const nextSlide= function(){
-  if(currentSlide === maxSlide-1){
-    currentSlide = 0;
-  }else{
-    currentSlide ++;
+  // create dots
+  const createDots = function () {
+    slides.forEach(function (_, i) {
+      dotContainer.insertAdjacentHTML(
+        'beforeend',
+        `<button class="dots__dot" data-slide="${i}"></button>`
+      );
+    });
   };
-  
-  goToSlide(currentSlide);
-  activeDots(currentSlide);
-}
 
-const previousSlide= function(){
-  if(currentSlide === 0){
-    currentSlide= maxSlide-1;
-  }else{
-    currentSlide--;
-  }
+  // active dot
+  const activeDots = function (slide) {
+    document
+      .querySelectorAll('.dots__dot')
+      .forEach(dot => dot.classList.remove('dots__dot--active'));
 
-  goToSlide(currentSlide);
-  activeDots(currentSlide);
-}
-
-const init=()=>{
-  goToSlide(0);
-  createDots();
-  activeDots(0);
-};
-init();
-
-// EVENT HANDLERS
-btnRight.addEventListener('click', nextSlide);
-btnLeft.addEventListener('click', previousSlide);
-
-document.addEventListener('keydown', function(e){
-  console.log(e);
-  if(e.key === 'ArrowLeft') previousSlide();
-  e.key === 'ArrowRight' && nextSlide();
-});
-
-dotContainer.addEventListener('click', function(e){
-  if(e.target.classList.contains('dots__dot')){
-    const {slide}=e.target.dataset;
-    console.log(slide);
-    goToSlide(slide);
-    activeDots(slide);
+    document
+      .querySelector(`.dots__dot[data-slide="${slide}"]`)
+      .classList.add('dots__dot--active');
   };
-});
+
+  const goToSlide = function (slide) {
+    slides.forEach(
+      (s, i) => (s.style.transform = `translateX(${100 * (i - slide)}%)`)
+    );
+  };
+
+  // Next slide
+  const nextSlide = function () {
+    if (currentSlide === maxSlide - 1) {
+      currentSlide = 0;
+    } else {
+      currentSlide++;
+    }
+
+    goToSlide(currentSlide);
+    activeDots(currentSlide);
+  };
+
+  const previousSlide = function () {
+    if (currentSlide === 0) {
+      currentSlide = maxSlide - 1;
+    } else {
+      currentSlide--;
+    }
+
+    goToSlide(currentSlide);
+    activeDots(currentSlide);
+  };
+
+  const init = () => {
+    goToSlide(0);
+    createDots();
+    activeDots(0);
+  };
+  init();
+
+  // EVENT HANDLERS
+  btnRight.addEventListener('click', nextSlide);
+  btnLeft.addEventListener('click', previousSlide);
+
+  document.addEventListener('keydown', function (e) {
+    console.log(e);
+    if (e.key === 'ArrowLeft') previousSlide();
+    e.key === 'ArrowRight' && nextSlide();
+  });
+
+  dotContainer.addEventListener('click', function (e) {
+    if (e.target.classList.contains('dots__dot')) {
+      const { slide } = e.target.dataset;
+      console.log(slide);
+      goToSlide(slide);
+      activeDots(slide);
+    }
+  });
 };
-sliders();
+sliders(); 
 
 // ////////////////// EXTRA //////////////////////
 
@@ -297,9 +292,6 @@ sliders();
 ///////////// closest find parent ////////////////
 // h1.closest('.header').style.background='var(--gradient-secondary)';
 
-
-
-
 // scrolling
 // const btnScrollTo=document.querySelector('.btn--scroll-to');
 // const section1=document.querySelector('#section--1');
@@ -315,7 +307,7 @@ sliders();
 // document.querySelectorAll('.nav__link').forEach((el)=>{
 //   el.addEventListener('click', function(e){
 //     e.preventDefault();
-  
+
 //     // console.log('link');
 //     const id=this.getAttribute('href');
 //     console.log(id);
@@ -324,8 +316,6 @@ sliders();
 //     });
 //   });
 // });
-
-
 
 ////////////////////////////// EXTRA /////////////////////////
 // bubble phase
@@ -350,7 +340,7 @@ sliders();
 //   console.log('links container', e.target);
 // });
 
-// //nav container 
+// //nav container
 // document.querySelector('.nav').addEventListener('click', function(e){
 //   this.style.backgroundColor=randomColor();
 //   console.log('nav container', e.target);
@@ -359,3 +349,5 @@ sliders();
 
 
 
+/////////////////////////////////////////////////
+document.addEventListener('DOMContentLoaded', (e)=>console.log(e));
